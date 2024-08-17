@@ -1,0 +1,6 @@
+@Project.WebAPI_HostAddress = http://localhost:5013
+
+GET {{Project.WebAPI_HostAddress}}/
+Accept: application/json
+
+###
