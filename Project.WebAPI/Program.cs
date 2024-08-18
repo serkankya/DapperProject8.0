@@ -14,6 +14,14 @@ namespace Project.WebAPI
 			builder.Services.ContainerDependencies();
 
 			builder.Services.AddControllers();
+
+			//LOG
+			builder.Services.AddLogging(config =>
+			{
+				config.AddConsole();
+				config.AddDebug(); 
+			});
+
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
