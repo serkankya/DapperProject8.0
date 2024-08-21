@@ -2,6 +2,7 @@
 using Project.WebAPI.Repositories.BrandRepository;
 using Project.WebAPI.Repositories.CategoryRepository;
 using Project.WebAPI.Repositories.ModelRepository;
+using Project.WebAPI.Repositories.VehicleRepository;
 
 namespace Project.WebAPI.Containers
 {
@@ -14,6 +15,7 @@ namespace Project.WebAPI.Containers
 			services.AddTransient<ICategoryRepository, CategoryRepository>();
 			services.AddTransient<IBrandRepository, BrandRepository>();
 			services.AddTransient<IModelRepository, ModelRepository>();
+			services.AddTransient<IVehicleRepository, VehicleRepository>();
 		}
 	}
 }
