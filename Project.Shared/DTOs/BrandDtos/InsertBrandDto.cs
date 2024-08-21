@@ -8,6 +8,6 @@ namespace Project.Shared.DTOs.BrandDtos
 {
 	public class InsertBrandDto
 	{
-		public string BrandName { get; set; }
+		public string? BrandName { get; set; }
 	}
 }

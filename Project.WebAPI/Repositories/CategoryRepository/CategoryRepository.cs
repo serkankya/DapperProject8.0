@@ -16,11 +16,12 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 			_logger = logger;
 		}
 
-		public async Task CreateCategory(InsertCategoryDto createCategoryDto)
+		public async Task InsertCategory(InsertCategoryDto insertCategoryDto)
 		{
 			string insertQuery = "INSERT INTO Categories (CategoryName) VALUES (@categoryName)";
+
 			var parameters = new DynamicParameters();
-			parameters.Add("@categoryName", createCategoryDto.CategoryName);
+			parameters.Add("@categoryName", insertCategoryDto.CategoryName);
 
 			try
 			{
@@ -28,11 +29,11 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 				{
 					await connection.ExecuteAsync(insertQuery, parameters);
 				}
-				_logger.LogInformation("Category created successfully: " + createCategoryDto.CategoryName);
+				_logger.LogInformation("Category created successfully: " + insertCategoryDto.CategoryName);
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "An error occurred while creating the category: " + createCategoryDto.CategoryName);
+				_logger.LogError(ex, "An error occurred while creating the category: " + insertCategoryDto.CategoryName);
 				throw;
 			}
 		}
@@ -40,8 +41,10 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 		public async Task RemoveCategory(int id)
 		{
 			string deleteQuery = "UPDATE Categories SET Status = 0 WHERE CategoryId = @categoryId";
+
 			var parameters = new DynamicParameters();
 			parameters.Add("@categoryId", id);
+
 			using (var connection = _context.CreateConnection())
 			{
 				await connection.ExecuteAsync(deleteQuery, parameters);
@@ -51,21 +54,36 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 		public async Task<ResultCategoryDto> GetCategoryById(int id)
 		{
 			string getQuery = "SELECT * FROM Categories WHERE CategoryId = @categoryId AND Status = 1";
+
 			var parameters = new DynamicParameters();
 			parameters.Add("@categoryId", id);
+
 			using (var connection = _context.CreateConnection())
 			{
 				var values = await connection.QueryFirstOrDefaultAsync<ResultCategoryDto>(getQuery, parameters);
+
+				if(values == null)
+				{
+					_logger.LogError("Category not found or inactive. "+ id);
+
+					return new ResultCategoryDto
+					{
+						CategoryId = 0,
+						CategoryName = "Category not found or inactive!"
+					};
+				}
+
 				return values;
 			}
 		}
 
 		public async Task<List<ResultCategoryDto>> ListActiveCategories()
 		{
-			string listQuery = "SELECT * FROM Categories WHERE Status = 1";
+			string listActivesQuery = "SELECT * FROM Categories WHERE Status = 1";
+
 			using (var connection = _context.CreateConnection())
 			{
-				var values = await connection.QueryAsync<ResultCategoryDto>(listQuery);
+				var values = await connection.QueryAsync<ResultCategoryDto>(listActivesQuery);
 				return values.ToList();
 			}
 		}
@@ -73,6 +91,7 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 		public async Task<List<ResultCategoryDto>> ListAllCategories()
 		{
 			string listQuery = "SELECT * FROM Categories";
+
 			using (var connection = _context.CreateConnection())
 			{
 				var values = await connection.QueryAsync<ResultCategoryDto>(listQuery);
@@ -83,6 +102,7 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 		public async Task UpdateCategory(UpdateCategoryDto updateCategoryDto)
 		{
 			string updateQuery = "UPDATE Categories SET CategoryName = @categoryName, Status = @status WHERE CategoryId = @categoryId";
+
 			var parameters = new DynamicParameters();
 			parameters.Add("@categoryName", updateCategoryDto.CategoryName);
 			parameters.Add("@status", updateCategoryDto.Status);

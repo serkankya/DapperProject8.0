@@ -9,6 +9,6 @@ namespace Project.Shared.DTOs.ModelDtos
 	public class InsertModelDto
 	{
 		public int BrandId { get; set; }
-		public string ModelName { get; set; }
+		public string? ModelName { get; set; }
 	}
 }

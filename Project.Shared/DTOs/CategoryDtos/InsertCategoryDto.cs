@@ -8,6 +8,6 @@ namespace Project.Shared.DTOs.CategoryDtos
 {
 	public class InsertCategoryDto
 	{
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
     }
 }

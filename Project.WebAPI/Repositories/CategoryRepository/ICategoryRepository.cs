@@ -4,7 +4,7 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 {
 	public interface ICategoryRepository
 	{
-		Task CreateCategory(InsertCategoryDto createCategoryDto);
+		Task InsertCategory(InsertCategoryDto createCategoryDto);
 		Task<List<ResultCategoryDto>> ListAllCategories();
 		Task<List<ResultCategoryDto>> ListActiveCategories();
 		Task UpdateCategory(UpdateCategoryDto updateCategoryDto);

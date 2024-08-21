@@ -30,10 +30,10 @@ namespace Project.WebAPI.Controllers
 			return Ok(values);
 		}
 
-		[HttpPost("CreateCategory")]
-		public async Task<IActionResult> CreateCategory(InsertCategoryDto createCategoryDto)
+		[HttpPost("InsertCategory")]
+		public async Task<IActionResult> InsertCategory(InsertCategoryDto insertCategoryDto)
 		{
-			await _categoryRepository.CreateCategory(createCategoryDto);
+			await _categoryRepository.InsertCategory(insertCategoryDto);
 			return Ok("New category inserted successfully.");
 		}
 

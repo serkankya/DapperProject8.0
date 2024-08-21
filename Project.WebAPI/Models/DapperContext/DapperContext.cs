@@ -11,7 +11,7 @@ namespace Project.WebAPI.Models.DapperContext
 		public DapperContext(IConfiguration config)
 		{
 			_config = config;
-			_connectionString = _config.GetConnectionString("connection");
+			_connectionString = _config.GetConnectionString("connection")!;
 		}
 
 		public IDbConnection CreateConnection() => new SqlConnection(_connectionString);

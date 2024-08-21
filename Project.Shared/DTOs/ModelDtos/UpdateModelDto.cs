@@ -10,6 +10,7 @@ namespace Project.Shared.DTOs.ModelDtos
 	{
         public int ModelId { get; set; }
         public int BrandId { get; set; }
-        public string ModelName { get; set; }
-    }
+        public string? ModelName { get; set; }
+		public bool Status { get; set; }
+	}
 }
