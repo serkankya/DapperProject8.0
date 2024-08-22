@@ -6,4 +6,32 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\design\.DS_Store" />
+    <None Include="wwwroot\design\css\.DS_Store" />
+    <None Include="wwwroot\design\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\design\css\css\.DS_Store" />
+    <None Include="wwwroot\design\fonts\.DS_Store" />
+    <None Include="wwwroot\design\fonts\flaticon\.DS_Store" />
+    <None Include="wwwroot\design\fonts\flaticon\font\.DS_Store" />
+    <None Include="wwwroot\design\fonts\ionicons\fonts\.DS_Store" />
+    <None Include="wwwroot\design\images\.DS_Store" />
+    <None Include="wwwroot\design\js\.DS_Store" />
+    <None Include="wwwroot\design\scss\.DS_Store" />
+    <None Include="wwwroot\design\scss\bootstrap\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Project.Shared\Project.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
