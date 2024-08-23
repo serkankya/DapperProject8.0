@@ -4,6 +4,7 @@ namespace Project.WebAPI.Repositories.VehicleRepository
 {
 	public interface IVehicleRepository
 	{
+		//Vehicles
 		Task InsertVehicle(InsertVehicleDto insertVehicleDto);
 		Task<List<ResultVehicleDto>> ListAllVehicles();
 		Task<List<ResultVehicleDto>> ListActiveVehicles();

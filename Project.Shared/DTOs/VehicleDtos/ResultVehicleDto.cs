@@ -8,6 +8,7 @@ namespace Project.Shared.DTOs.VehicleDtos
 {
 	public class ResultVehicleDto
 	{
+		//Vehicles
 		public int VehicleId { get; set; }
 		public int CategoryId { get; set; }
 		public int ModelId { get; set; }
@@ -18,5 +19,20 @@ namespace Project.Shared.DTOs.VehicleDtos
 		public DateTime InsertedDate { get; set; }
 		public int InsertedBy { get; set; }
 		public bool Status { get; set; }
-	}
+
+
+        //VehicleDetails
+        public string? EngineType { get; set; }
+        public string? Transmission { get; set; }
+        public string? FuelType { get; set; }
+        public string? Description { get; set; }
+		public int NumberOfSeats { get; set; }
+        public decimal MileAge { get; set; }
+
+
+        //Independent
+        public string? CategoryName { get; set; }
+        public string? ModelName { get; set; }
+        public string? BrandName { get; set; }
+    }
 }
