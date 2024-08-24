@@ -112,7 +112,7 @@ namespace Project.WebAPI.Repositories.BrandRepository
 			{
 				using (var connection = _dapperContext.CreateConnection())
 				{
-					await connection.QueryAsync(updateQuery, parameters);
+					await connection.ExecuteAsync(updateQuery, parameters);
 				}
 				_logger.LogInformation("Brand updated successfully: " + updateBrandDto.BrandId);
 			}

@@ -52,7 +52,7 @@ namespace Project.WebAPI.Repositories.HomeContentRepository
 			{
 				using (var connection = _dapperContext.CreateConnection())
 				{
-					await connection.QueryAsync(updateQuery, parameters);
+					await connection.ExecuteAsync(updateQuery, parameters);
 				}
 				_logger.LogInformation("Home content updated successfully : " + updateHomeContentDto.HomeContentId);
 			}

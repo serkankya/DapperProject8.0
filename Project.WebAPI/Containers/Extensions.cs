@@ -1,4 +1,5 @@
 ﻿using Project.WebAPI.Models.DapperContext;
+using Project.WebAPI.Repositories.AboutUsRepository;
 using Project.WebAPI.Repositories.BrandRepository;
 using Project.WebAPI.Repositories.CategoryRepository;
 using Project.WebAPI.Repositories.HomeContentRepository;
@@ -18,6 +19,7 @@ namespace Project.WebAPI.Containers
 			services.AddTransient<IModelRepository, ModelRepository>();
 			services.AddTransient<IVehicleRepository, VehicleRepository>();
 			services.AddTransient<IHomeContentRepository, HomeContentRepository>();
+			services.AddTransient<IAboutUsRepository, AboutUsRepository>();
 		}
 	}
 }

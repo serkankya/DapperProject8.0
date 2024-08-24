@@ -113,7 +113,7 @@ namespace Project.WebAPI.Repositories.ModelRepository
 			{
 				using (var connection = _dapperContext.CreateConnection())
 				{
-					await connection.QueryAsync(updateQuery, parameters);
+					await connection.ExecuteAsync(updateQuery, parameters);
 				}
 				_logger.LogInformation("Model updated successfully: " + updateModelDto.ModelName);
 			}

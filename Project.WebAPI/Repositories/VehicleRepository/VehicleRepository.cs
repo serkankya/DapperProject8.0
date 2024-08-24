@@ -17,9 +17,20 @@ namespace Project.WebAPI.Repositories.VehicleRepository
             _logger = logger;
         }
 
+        public async Task<List<ResultVehicleDto>> GetSelectedCars()
+        {
+            string selectedCarsQuery = "SELECT v.VehicleId, m.ModelName, b.BrandName, c.CategoryName, v.LicensePlate, v.Year, v.Color, v.PricePerDay, vD.Description FROM Vehicles v INNER JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId INNER JOIN Models m ON v.ModelId = m.ModelId INNER JOIN Brands b ON b.BrandId = m.BrandId INNER JOIN Categories c ON c.CategoryId = v.CategoryId WHERE v.STATUS = 1 AND v.IsSelectedCar = 1";
+
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var values = await connection.QueryAsync<ResultVehicleDto>(selectedCarsQuery);
+                return values.ToList();
+            }
+        }
+
         public async Task<ResultVehicleDto> GetVehicleById(int id)
         {
-            string getQuery = "SELECT * FROM Vehicles WHERE VehicleId = @vehicleId AND STATUS = 1";
+            string getQuery = "SELECT v.VehicleId, v.CategoryId, v.ModelId, m.ModelName, b.BrandName, c.CategoryName, v.LicensePlate, v.Year, v.Color, v.PricePerDay, v.InsertedDate, v.Status, vD.EngineType, vD.Transmission, vD.FuelType, vD.Mileage, vD.NumberOfSeats, vD.Description FROM Vehicles v INNER JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId INNER JOIN Models m ON v.ModelId = m.ModelId INNER JOIN Brands b ON b.BrandId = m.BrandId INNER JOIN Categories c ON c.CategoryId = v.CategoryId WHERE v.VehicleId = @vehicleId AND v.STATUS = 1";
 
             var parameters = new DynamicParameters();
             parameters.Add("@vehicleId", id);
@@ -78,8 +89,8 @@ namespace Project.WebAPI.Repositories.VehicleRepository
                         await connection.ExecuteAsync(insertVehicleDetailsQuery, vehicleDetailParameters, transaction);
 
                         transaction.Commit();
-                        
-                        _logger.LogInformation("Vehicle created successfully: "+insertVehicleDto.LicensePlate);
+
+                        _logger.LogInformation("Vehicle created successfully: " + insertVehicleDto.LicensePlate);
                     }
                     catch (Exception ex)
                     {
@@ -93,7 +104,7 @@ namespace Project.WebAPI.Repositories.VehicleRepository
 
         public async Task<List<ResultVehicleDto>> ListActiveVehicles()
         {
-            string listActivesQuery = "SELECT * FROM Vehicles v LEFT JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId WHERE Status = 1";
+            string listActivesQuery = "SELECT v.VehicleId, v.CategoryId, v.ModelId, m.ModelName, b.BrandName, c.CategoryName, v.LicensePlate, v.Year, v.Color, v.PricePerDay, v.InsertedDate, v.Status, vD.EngineType, vD.Transmission, vD.FuelType, vD.Mileage, vD.NumberOfSeats, vD.Description FROM Vehicles v INNER JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId INNER JOIN Models m ON v.ModelId = m.ModelId INNER JOIN Brands b ON b.BrandId = m.BrandId INNER JOIN Categories c ON c.CategoryId = v.CategoryId WHERE v.Status = 1";
 
             using (var connection = _dapperContext.CreateConnection())
             {
@@ -104,7 +115,7 @@ namespace Project.WebAPI.Repositories.VehicleRepository
 
         public async Task<List<ResultVehicleDto>> ListAllVehicles()
         {
-            string listActivesQuery = "SELECT * FROM Vehicles v LEFT JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId";
+            string listActivesQuery = "SELECT v.VehicleId, v.CategoryId, v.ModelId, m.ModelName, b.BrandName, c.CategoryName, v.LicensePlate, v.Year, v.Color, v.PricePerDay, v.InsertedDate, v.Status, vD.EngineType, vD.Transmission, vD.FuelType, vD.Mileage, vD.NumberOfSeats, vD.Description FROM Vehicles v INNER JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId INNER JOIN Models m ON v.ModelId = m.ModelId INNER JOIN Brands b ON b.BrandId = m.BrandId INNER JOIN Categories c ON c.CategoryId = v.CategoryId";
 
             using (var connection = _dapperContext.CreateConnection())
             {
@@ -128,33 +139,53 @@ namespace Project.WebAPI.Repositories.VehicleRepository
 
         public async Task UpdateVehicle(UpdateVehicleDto updateVehicleDto)
         {
-            string updateQuery = "UPDATE Vehicles SET CategoryId = @categoryId, ModelId = @modelId, LicensePlate = @licensePlate, Year = @year, Color = @color, PricePerDay = @pricePerDay, Status = @status WHERE VehicleId = @vehicleId";
+            string updateVehiclesQuery = "UPDATE Vehicles SET CategoryId = @categoryId, ModelId = @modelId, LicensePlate = @licensePlate, Year = @year, Color = @color, PricePerDay = @pricePerDay, Status = @status WHERE VehicleId = @vehicleId";
 
-            var parameters = new DynamicParameters();
+            string updateVehicleDetailsQuery = "UPDATE VehicleDetails SET EngineType = @engineType, Transmission = @transmission, FuelType = @fuelType, Description = @description, NumberOfSeats = @numberOfSeats, Mileage = @mileage WHERE VehicleId = @vehicleId";
 
-            parameters.Add("@categoryId", updateVehicleDto.CategoryId);
-            parameters.Add("@modelId", updateVehicleDto.ModelId);
-            parameters.Add("@licensePlate", updateVehicleDto.LicensePlate);
-            parameters.Add("@year", updateVehicleDto.Year);
-            parameters.Add("@color", updateVehicleDto.Color);
-            parameters.Add("@pricePerDay", updateVehicleDto.PricePerDay);
-            parameters.Add("@status", updateVehicleDto.Status);
-            parameters.Add("@vehicleId", updateVehicleDto.VehicleId);
-
-            //to be continued
-
-            try
+            using (var connection = _dapperContext.CreateConnection())
             {
-                using (var connection = _dapperContext.CreateConnection())
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
                 {
-                    await connection.ExecuteAsync(updateQuery, parameters);
+                    try
+                    {
+                        var vehicleParameters = new DynamicParameters();
+
+                        vehicleParameters.Add("@categoryId", updateVehicleDto.CategoryId);
+                        vehicleParameters.Add("@modelId", updateVehicleDto.ModelId);
+                        vehicleParameters.Add("@licensePlate", updateVehicleDto.LicensePlate);
+                        vehicleParameters.Add("@year", updateVehicleDto.Year);
+                        vehicleParameters.Add("@color", updateVehicleDto.Color);
+                        vehicleParameters.Add("@pricePerDay", updateVehicleDto.PricePerDay);
+                        vehicleParameters.Add("@status", updateVehicleDto.Status);
+                        vehicleParameters.Add("@vehicleId", updateVehicleDto.VehicleId);
+
+                        await connection.ExecuteAsync(updateVehiclesQuery, vehicleParameters, transaction);
+
+                        var vehicleDetailsParameters = new DynamicParameters();
+                        vehicleDetailsParameters.Add("@engineType", updateVehicleDto.EngineType);
+                        vehicleDetailsParameters.Add("@transmission", updateVehicleDto.Transmission);
+                        vehicleDetailsParameters.Add("@fuelType", updateVehicleDto.FuelType);
+                        vehicleDetailsParameters.Add("@description", updateVehicleDto.Description);
+                        vehicleDetailsParameters.Add("@numberOfSeats", updateVehicleDto.NumberOfSeats);
+                        vehicleDetailsParameters.Add("@mileage", updateVehicleDto.Mileage);
+                        vehicleDetailsParameters.Add("@vehicleId", updateVehicleDto.VehicleId);
+
+                        await connection.ExecuteAsync(updateVehicleDetailsQuery, vehicleDetailsParameters, transaction);
+
+                        transaction.Commit();
+
+                        _logger.LogInformation("Vehicle updated successfully: " + updateVehicleDto.VehicleId);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, " An error occured while updating the vehicle: " + updateVehicleDto.VehicleId);
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-                _logger.LogInformation("Vehicle updated successfully: " + updateVehicleDto.VehicleId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, " An error occured while updating the vehicle: " + updateVehicleDto.VehicleId);
-                throw;
             }
         }
     }
