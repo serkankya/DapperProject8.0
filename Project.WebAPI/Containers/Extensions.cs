@@ -4,6 +4,8 @@ using Project.WebAPI.Repositories.BrandRepository;
 using Project.WebAPI.Repositories.CategoryRepository;
 using Project.WebAPI.Repositories.HomeContentRepository;
 using Project.WebAPI.Repositories.ModelRepository;
+using Project.WebAPI.Repositories.OurServiceRepository;
+using Project.WebAPI.Repositories.TestimonialRepository;
 using Project.WebAPI.Repositories.VehicleRepository;
 
 namespace Project.WebAPI.Containers
@@ -20,6 +22,8 @@ namespace Project.WebAPI.Containers
 			services.AddTransient<IVehicleRepository, VehicleRepository>();
 			services.AddTransient<IHomeContentRepository, HomeContentRepository>();
 			services.AddTransient<IAboutUsRepository, AboutUsRepository>();
+			services.AddTransient<IOurServiceRepository, OurServiceRepository>();
+			services.AddTransient<ITestimonialRepository, TestimonialRepository>();
 		}
 	}
 }

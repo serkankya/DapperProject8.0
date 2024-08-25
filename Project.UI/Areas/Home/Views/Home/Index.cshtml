@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-@* HomeContent *@
+@* HomeContent*@
 @await Component.InvokeAsync("_HomeContentComponentPartial");
 
 @*SelectedCars*@
@@ -12,3 +12,11 @@
 @*AboutUs*@
 @await Component.InvokeAsync("_HomeAboutUsComponentPartial");
 
+@*OurServices*@
+@await Component.InvokeAsync("_HomeOurServicesComponentPartial");
+
+@*Testimonials*@
+@await Component.InvokeAsync("_HomeTestimonialsComponentPartial");
+
+@*Statistics*@
+@* @await Component.InvokeAsync("_HomeStatisticsComponentPartial"); *@
