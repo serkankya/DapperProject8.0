@@ -1,3 +1,5 @@
+using Project.UI.Models;
+
 namespace Project.UI
 {
 	public class Program
@@ -8,8 +10,10 @@ namespace Project.UI
 
 			builder.Services.AddHttpClient();
 
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
+            builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettingsKey"));
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
 
