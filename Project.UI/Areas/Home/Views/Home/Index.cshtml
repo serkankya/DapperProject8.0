@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
+@*Home View*@
+
 @* HomeContent*@
 @await Component.InvokeAsync("_HomeContentComponentPartial");
 
@@ -19,4 +21,4 @@
 @await Component.InvokeAsync("_HomeTestimonialsComponentPartial");
 
 @*Statistics*@
-@* @await Component.InvokeAsync("_HomeStatisticsComponentPartial"); *@
+@await Component.InvokeAsync("_HomeStatisticsComponentPartial");

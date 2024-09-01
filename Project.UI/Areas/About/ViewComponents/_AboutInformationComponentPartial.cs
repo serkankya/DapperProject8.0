@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Project.Shared.DTOs.HomeContentDtos;
+using Project.Shared.DTOs.AboutUsDtos;
 using Project.UI.Models;
 
-namespace Project.UI.Areas.Home.ViewComponents
+namespace Project.UI.Areas.About.ViewComponents
 {
-    public class _HomeContentComponentPartial : ViewComponent
+    public class _AboutInformationComponentPartial : ViewComponent
     {
         readonly IHttpClientFactory _httpClientFactory;
         readonly ApiSettings _apiSettings;
 
-        public _HomeContentComponentPartial(IHttpClientFactory httpClientFactory, IOptions<ApiSettings> apiSettings)
+        public _AboutInformationComponentPartial(IHttpClientFactory httpClientFactory, IOptions<ApiSettings> apiSettings)
         {
             _httpClientFactory = httpClientFactory;
             _apiSettings = apiSettings.Value;
@@ -21,12 +21,12 @@ namespace Project.UI.Areas.Home.ViewComponents
         {
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_apiSettings.BaseHostUrl!);
-            var responseMessage = await client.GetAsync("HomeContent/GetHomeContent");
+            var responseMessage = await client.GetAsync("AboutUs/GetAboutUs");
 
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultHomeContentDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<ResultAboutUsDto>(jsonData);
                 return View(values);
             }
 

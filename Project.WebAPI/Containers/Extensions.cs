@@ -1,8 +1,12 @@
 ﻿using Project.WebAPI.Models.DapperContext;
 using Project.WebAPI.Repositories.AboutUsRepository;
+using Project.WebAPI.Repositories.AddressRepository;
+using Project.WebAPI.Repositories.AwardRepository;
 using Project.WebAPI.Repositories.BrandRepository;
 using Project.WebAPI.Repositories.CategoryRepository;
 using Project.WebAPI.Repositories.HomeContentRepository;
+using Project.WebAPI.Repositories.MessageRepository;
+using Project.WebAPI.Repositories.MissionVisionRepository;
 using Project.WebAPI.Repositories.ModelRepository;
 using Project.WebAPI.Repositories.OurServiceRepository;
 using Project.WebAPI.Repositories.TestimonialRepository;
@@ -24,6 +28,10 @@ namespace Project.WebAPI.Containers
 			services.AddTransient<IAboutUsRepository, AboutUsRepository>();
 			services.AddTransient<IOurServiceRepository, OurServiceRepository>();
 			services.AddTransient<ITestimonialRepository, TestimonialRepository>();
+			services.AddTransient<IAwardRepository, AwardRepository>();
+			services.AddTransient<IMissionVisionRepository, MissionVisionRepository>();
+			services.AddTransient<IAddressRepository, AddressRepository>();
+			services.AddTransient<IMessageRepository, MessageRepository>();
 		}
 	}
 }

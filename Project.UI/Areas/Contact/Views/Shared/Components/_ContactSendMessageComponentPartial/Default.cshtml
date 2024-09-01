@@ -1,0 +1,35 @@
+﻿@using Project.Shared.DTOs.MessageDtos
+@model InsertMessageDto
+
+<div class="col-md-8 block-9 mb-md-5">
+	@if (TempData["SuccessMessage"] != null)
+	{
+		<div class="alert alert-success">
+			@TempData["SuccessMessage"]
+		</div>
+	}
+
+	<form action="/Contact/Contact/SendMessage" method="post" class="bg-light p-5 contact-form">
+		<div class="form-group">
+			<input type="text" class="form-control" name="Name" placeholder="Adınız">
+		</div>
+		<div class="form-group">
+			<input type="text" name="Surname" class="form-control" placeholder="Soyadınız">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" name="Email" placeholder="Mailiniz">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" name="Subject" placeholder="Konu">
+		</div>
+		<div class="form-group">
+			<textarea cols="30" rows="7" class="form-control" name="Message" placeholder="Mesaj"></textarea>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Mesaj Gönder" class="btn btn-primary py-3 px-5">
+		</div>
+	</form>
+
+</div>
+
+
