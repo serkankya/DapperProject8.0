@@ -24,5 +24,11 @@ namespace Project.Shared.DTOs.VehicleDtos
         public string? Description { get; set; }
         public int NumberOfSeats { get; set; }
         public decimal MileAge { get; set; }
+
+        //VehicleAmenities
+        public List<int>? AmenityId { get; set; }
+
+        //VehicleImages
+        public List<string>? ImageUrl { get; set; }
     }
 }

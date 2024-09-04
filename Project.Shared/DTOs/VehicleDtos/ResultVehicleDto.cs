@@ -15,6 +15,7 @@ namespace Project.Shared.DTOs.VehicleDtos
         public string? LicensePlate { get; set; }
         public string? Year { get; set; }
         public string? Color { get; set; }
+        public string? CoverImage { get; set; }
         public decimal PricePerDay { get; set; }
         public bool IsSelectedCar { get; set; }
         public DateTime InsertedDate { get; set; }

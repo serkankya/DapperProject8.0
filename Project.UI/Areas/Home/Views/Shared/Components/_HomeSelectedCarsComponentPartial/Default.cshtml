@@ -17,7 +17,7 @@
 					{
 						<div class="item">
 							<div class="car-wrap rounded ftco-animate">
-								<div class="img rounded d-flex align-items-end" style="background-image: url('@Url.Content("~/design/images/image_1.jpg")');">
+								<div class="img rounded d-flex align-items-end" style="background-image: url('@Url.Content(item.CoverImage)');">
 								</div>
 								<div class="text">
 									<h2 class="mb-0"><a href="#">@item.BrandName @item.ModelName</a></h2>
@@ -25,7 +25,7 @@
 										<span class="cat">@item.CategoryName</span>
 										<p class="price ml-auto">₺@item.PricePerDay <span>/gün</span></p>
 									</div>
-									<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Şimdi kirala</a> <a href="#" class="btn btn-secondary py-2 ml-1">Detaylar</a></p>
+									<p class="d-flex mb-0 d-block"><a href="/Details/@item.VehicleId" class="btn btn-secondary py-2 ml-1">Detaylar</a></p>
 								</div>
 							</div>
 						</div>

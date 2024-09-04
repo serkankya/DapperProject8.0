@@ -8,6 +8,6 @@ namespace Project.WebAPI.Repositories.MessageRepository
 		Task<List<ResultMessageDto>> ListUnreadMessages();
 		Task InsertMessage(InsertMessageDto insertMessageDto);
 		Task DeleteMessage(int id);
-		Task GetMessageById(int id);
+		Task<ResultMessageDto> GetMessageById(int id);
 	}
 }

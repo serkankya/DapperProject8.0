@@ -1,0 +1,18 @@
+﻿@using Project.Shared.DTOs.VehicleAmenitiesDtos
+@model List<ResultVehicleAmenitiesDto>
+
+<div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+	<div class="row">
+
+		@foreach (var item in Model)
+		{
+			<div class="col-md-4">
+				<ul class="features">
+					<li class = @item.Status == true ? "check" : "remove"><span class="ion-ios-checkmark"></span>@item.Title</li>
+				</ul>
+			</div>
+		}
+
+	</div>
+</div>
+
