@@ -1,15 +1,18 @@
-﻿using Project.WebAPI.Models.DapperContext;
+﻿using Project.Shared.DTOs.Reviews;
+using Project.WebAPI.Models.DapperContext;
 using Project.WebAPI.Repositories.AboutUsRepository;
 using Project.WebAPI.Repositories.AddressRepository;
 using Project.WebAPI.Repositories.AwardRepository;
 using Project.WebAPI.Repositories.BlogRepository;
 using Project.WebAPI.Repositories.BrandRepository;
 using Project.WebAPI.Repositories.CategoryRepository;
+using Project.WebAPI.Repositories.CommentRepository;
 using Project.WebAPI.Repositories.HomeContentRepository;
 using Project.WebAPI.Repositories.MessageRepository;
 using Project.WebAPI.Repositories.MissionVisionRepository;
 using Project.WebAPI.Repositories.ModelRepository;
 using Project.WebAPI.Repositories.OurServiceRepository;
+using Project.WebAPI.Repositories.ReviewRepository;
 using Project.WebAPI.Repositories.TestimonialRepository;
 using Project.WebAPI.Repositories.VehicleAmenityRepository;
 using Project.WebAPI.Repositories.VehicleRepository;
@@ -36,6 +39,8 @@ namespace Project.WebAPI.Containers
 			services.AddTransient<IMessageRepository, MessageRepository>();
 			services.AddTransient<IBlogRepository, BlogRepository>();
 			services.AddTransient<IVehicleAmenityRepository, VehicleAmenityRepository>();
+			services.AddTransient<IReviewRepository, ReviewRepository>();
+			services.AddTransient<ICommentRepository, CommentRepository>();
 		}
 	}
 }

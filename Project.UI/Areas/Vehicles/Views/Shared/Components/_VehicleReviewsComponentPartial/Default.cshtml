@@ -1,0 +1,98 @@
+﻿@using Project.Shared.DTOs.Reviews
+@model List<ResultReviewDto>
+
+@{
+	ViewBag.OneStar = 0;
+	ViewBag.TwoStars = 0;
+	ViewBag.ThreeStars = 0;
+	ViewBag.FourStars = 0;
+	ViewBag.FiveStars = 0;
+}
+
+<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+	<div class="row">
+		<div class="col-md-7">
+			<h3 class="head">@Model.Count Yorum</h3>
+
+			@foreach (var item in Model)
+			{
+				switch (item.Stars)
+				{
+					case 1: ViewBag.OneStar += 1; break;
+					case 2: ViewBag.TwoStars += 1; break;
+					case 3: ViewBag.ThreeStars += 1; break;
+					case 4: ViewBag.FourStars += 1; break;
+					case 5: ViewBag.FiveStars += 1; break;
+				}
+
+				<div class="review d-flex">
+					<div class="user-img" style="background-image: url('@Url.Content(item.ImageUrl)');"></div>
+					<div class="desc">
+						<h4>
+							<span class="text-left">@item.FullName</span>
+							<span class="text-right">@item.ReviewDate</span>
+						</h4>
+						<p class="star">
+
+							<span>
+								@for (int i = 0; i < item.Stars; i++)
+								{
+									<i class="ion-ios-star"></i>
+								}
+							</span>
+						</p>
+						<p>@item.Comment</p>
+					</div>
+				</div>
+			}
+
+		</div>
+		<div class="col-md-5">
+			<div class="rating-wrap">
+				<h3 class="head">Verilen Yıldızlar</h3>
+				<div class="wrap">
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+						</span>
+						<span>@ViewBag.FiveStars Adet</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+						</span>
+						<span>@ViewBag.FourStars Adet</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+						</span>
+						<span>@ViewBag.ThreeStars Adet</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+						</span>
+						<span>@ViewBag.TwoStars Adet</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+						</span>
+						<span>@ViewBag.OneStar Adet</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

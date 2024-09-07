@@ -57,5 +57,12 @@ namespace Project.WebAPI.Controllers
             var values = await _blogRepository.GetBlogById(id);
             return Ok(values);
         }
+
+        [HttpGet("GetRecentBlogs")]
+        public async Task<IActionResult> GetRecentBlogs()
+        {
+            var values = await _blogRepository.ListRecentBlogs();
+            return Ok(values);
+        }
     }
 }

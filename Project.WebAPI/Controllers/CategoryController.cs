@@ -58,5 +58,11 @@ namespace Project.WebAPI.Controllers
 			return Ok(values);
 		}
 
+		[HttpGet("GetVehicleCount")]
+		public async Task<IActionResult> GetVehicleCount()
+		{
+			var values = await _categoryRepository.ListVehicleCount();
+			return Ok(values);
+		}
 	}
 }

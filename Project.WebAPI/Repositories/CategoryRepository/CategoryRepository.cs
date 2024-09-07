@@ -122,5 +122,16 @@ namespace Project.WebAPI.Repositories.CategoryRepository
 				throw;
 			}
 		}
+
+		public async Task<List<ResultCategoryDto>> ListVehicleCount()
+		{
+			string listGetQuery = "SELECT c.CategoryId, c.CategoryName, COUNT(v.VehicleId) AS VehicleCount FROM Categories c LEFT JOIN Vehicles v ON c.CategoryId = v.CategoryId WHERE c.Status = 1 AND v.Status = 1 GROUP BY c.CategoryId, c.CategoryName\r\n";
+
+			using (var connection = _context.CreateConnection())
+			{
+				var values = await connection.QueryAsync<ResultCategoryDto>(listGetQuery);
+				return values.ToList();
+			}
+		}
 	}
 }

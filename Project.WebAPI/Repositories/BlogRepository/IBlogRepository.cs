@@ -6,6 +6,7 @@ namespace Project.WebAPI.Repositories.BlogRepository
     {
         Task<List<ResultBlogDto>> ListActiveBlogs();
         Task<List<ResultBlogDto>> ListAllBlogs();
+        Task<List<ResultBlogDto>> ListRecentBlogs();
         Task InsertBlog(InsertBlogDto insertBlogDto);
         Task UpdateBlog(UpdateBlogDto updateBlogDto);
         Task RemoveBlog(int id);

@@ -136,7 +136,7 @@
 						<p>@Model.Description</p>
 					</div>
 
-					@* Reviews will be here. *@
+					@await Component.InvokeAsync("_VehicleReviewsComponentPartial")
 				</div>
 			</div>
 		</div>

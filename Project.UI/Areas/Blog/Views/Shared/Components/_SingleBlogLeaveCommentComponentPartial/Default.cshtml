@@ -1,0 +1,30 @@
+﻿@using Project.Shared.DTOs.CommentDtos
+@model InsertCommentDto
+
+<div class="comment-form-wrap pt-5">
+	<h3 class="mb-5">Yorum Yap</h3>
+	<form action="/Blog/Blog/InsertComment" method="post" class="p-5 bg-light">
+		<input type="hidden" name="BlogId" value="@ViewBag.BlogId" />
+		<div class="form-group">
+			<label>Adınız *</label>
+			<input type="text" class="form-control" name="UserName">
+		</div>
+		<div class="form-group">
+			<label>Email Adresiniz *</label>
+			<input type="email" class="form-control" name="Email">
+		</div>
+		<div class="form-group">
+			<label>Resminiz *</label>
+			<input type="text" class="form-control" name="ImageUrl">
+		</div>
+
+		<div class="form-group">
+			<label>Yorumunuz *</label>
+			<textarea name="Comment" cols="30" rows="10" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Yorum Yap" class="btn py-3 px-4 btn-primary">
+		</div>
+
+	</form>
+</div>

@@ -1,15 +1,35 @@
-﻿@using Project.Shared.DTOs.BlogDtos
-@model ResultBlogDto
+﻿
 
 <section class="ftco-section ftco-degree-bg">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 ftco-animate">
-				<h2 class="mb-3">@Model.PreTitle</h2>
-				<p>@Model.PreDescription</p>
-				<h2 class="mb-3">@Model.Title</h2>
-				<p>@Model.Description</p>
+				@await Component.InvokeAsync("_SingleBlogContentComponentPartial")
+
+				@await Component.InvokeAsync("_SingleBlogAuthorComponentPartial")
+
+
+				@await Component.InvokeAsync("_SingleBlogCommentsComponentPartial")
+
+
+				@await Component.InvokeAsync("_SingleBlogLeaveCommentComponentPartial")
+
+			</div> <!-- .col-md-8 -->
+			<div class="col-md-4 sidebar ftco-animate">
+
+				@await Component.InvokeAsync("_SingleBlogSearchComponentPartial")
+
+				@await Component.InvokeAsync("_SingleBlogCategoriesComponentPartial")
+
+				@await Component.InvokeAsync("_SingleBlogRecentBlogsComponentPartial")
+
+
+				<div class="sidebar-box ftco-animate">
+					<h3>Paragraph</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+				</div>
 			</div>
+
 		</div>
 	</div>
-</section> 
+</section>

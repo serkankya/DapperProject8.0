@@ -10,6 +10,7 @@ namespace Project.Shared.DTOs.CategoryDtos
 	{
         public int CategoryId { get; set; }
         public string? CategoryName { get; set; }
+        public int VehicleCount { get; set; }
         public bool Status { get; set; }
     }
 }

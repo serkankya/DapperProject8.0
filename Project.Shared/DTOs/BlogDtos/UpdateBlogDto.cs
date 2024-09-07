@@ -10,9 +10,11 @@ namespace Project.Shared.DTOs.BlogDtos
     {
         public int BlogId { get; set; }
         public int UserId { get; set; }
-        public string? Title { get; set; }
-        public string? Description { get; set; }
-		public string? PreTitle { get; set; }
+        public string? FirstTitle { get; set; }
+        public string? FirstDescription { get; set; }
+        public string? SecondTitle { get; set; }
+        public string? SecondDescription { get; set; }
+        public string? PreTitle { get; set; }
 		public string? PreDescription { get; set; }
 		public string? ImageUrl { get; set; }
         public bool Status { get; set; }

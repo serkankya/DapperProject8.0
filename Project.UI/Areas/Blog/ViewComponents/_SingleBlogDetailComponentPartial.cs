@@ -8,30 +8,8 @@ namespace Project.UI.Areas.Blog.ViewComponents
 {
 	public class _SingleBlogDetailComponentPartial : ViewComponent
 	{
-		readonly IHttpClientFactory _httpClientFactory;
-		readonly ApiSettings _apiSettings;
-
-		public _SingleBlogDetailComponentPartial(IHttpClientFactory httpClientFactory, IOptions<ApiSettings> apiSettings)
+		public IViewComponentResult Invoke()
 		{
-			_httpClientFactory = httpClientFactory;
-			_apiSettings = apiSettings.Value;
-		}
-
-		public async Task<IViewComponentResult> InvokeAsync(int id)
-		{
-			id = ViewBag.BlogId;
-
-			var client = _httpClientFactory.CreateClient();
-			client.BaseAddress = new Uri(_apiSettings.BaseHostUrl!);
-			var responseMessage = await client.GetAsync("Blog/GetBlog/" + id);
-
-			if (responseMessage.IsSuccessStatusCode)
-			{
-				var jsonData = await responseMessage.Content.ReadAsStringAsync();
-				var values = JsonConvert.DeserializeObject<ResultBlogDto>(jsonData);
-				return View(values);
-			}
-
 			return View();
 		}
 	}

@@ -1,0 +1,16 @@
+﻿@using Project.Shared.DTOs.BlogDtos
+@model ResultBlogDto
+
+<h2 class="mb-3">@Model.PreTitle</h2>
+<p>@Model.PreDescription</p>
+<p>
+	<img src="@Url.Content("~/design/images/car-2.jpg")" alt="" class="img-fluid">
+</p>
+<h2 class="mb-3 mt-5">@Model.FirstTitle</h2>
+<p>@Model.FirstDescription</p>
+<p>
+	<img src="@Url.Content("~/design/images/car-1.jpg")" alt="" class="img-fluid">
+</p>
+
+<h2>@Model.SecondTitle</h2>
+<p>@Model.SecondDescription</p>
