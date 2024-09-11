@@ -245,5 +245,16 @@ namespace Project.WebAPI.Repositories.VehicleRepository
 				}
 			}
 		}
+
+		public async Task<List<ResultVehicleDto>> ListOtherCars()
+		{
+			string listOthersQuery = "SELECT TOP(3) v.VehicleId, v.CategoryId, v.ModelId, m.ModelName, b.BrandName, c.CategoryName, v.LicensePlate, v.Year, v.Color, v.CoverImage, v.PricePerDay, v.InsertedDate, v.Status, vD.EngineType, vD.Transmission, vD.FuelType, vD.Mileage, vD.NumberOfSeats, vD.Description FROM Vehicles v INNER JOIN VehicleDetails vD ON v.VehicleId = vD.VehicleId INNER JOIN Models m ON v.ModelId = m.ModelId INNER JOIN Brands b ON b.BrandId = m.BrandId INNER JOIN Categories c ON c.CategoryId = v.CategoryId WHERE v.Status = 1 ORDER BY InsertedDate DESC";
+
+			using (var connection = _dapperContext.CreateConnection())
+			{
+				var values = await connection.QueryAsync<ResultVehicleDto>(listOthersQuery);
+				return values.ToList();
+			}
+		}
 	}
 }

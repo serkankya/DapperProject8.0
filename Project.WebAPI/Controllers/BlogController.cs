@@ -58,11 +58,25 @@ namespace Project.WebAPI.Controllers
             return Ok(values);
         }
 
-        [HttpGet("GetRecentBlogs")]
-        public async Task<IActionResult> GetRecentBlogs()
+        [HttpGet("GetRecentBlogs/{id}")]
+        public async Task<IActionResult> GetRecentBlogs(int id)
         {
-            var values = await _blogRepository.ListRecentBlogs();
+            var values = await _blogRepository.ListRecentBlogs(id);
             return Ok(values);
         }
-    }
+
+		[HttpGet("GetCommentCountAndBlogs")]
+		public async Task<IActionResult> GetCommentCount()
+		{
+			var values = await _blogRepository.GetCommentCountAndBlogs();
+			return Ok(values);
+		}
+
+        [HttpGet("SearchBlog")]
+        public async Task<IActionResult> SearchBlog(string keyWord)
+        {
+            var values = await _blogRepository.SearchBlog(keyWord);
+            return Ok(values);
+        }
+	}
 }

@@ -17,11 +17,13 @@ namespace Project.UI.Areas.Blog.ViewComponents
             _apiSettings = apiSettings.Value;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int currentBlogId)
         {
+            currentBlogId = ViewBag.BlogId;
+
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_apiSettings.BaseHostUrl!);
-            var responseMessage = await client.GetAsync("Blog/GetRecentBlogs");
+            var responseMessage = await client.GetAsync("Blog/GetRecentBlogs/"+ currentBlogId);
 
             if (responseMessage.IsSuccessStatusCode)
             {

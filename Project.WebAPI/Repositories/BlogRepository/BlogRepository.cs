@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Project.Shared.DTOs.BlogDtos;
+using Project.Shared.DTOs.CommentDtos;
 using Project.WebAPI.Models.DapperContext;
 
 namespace Project.WebAPI.Repositories.BlogRepository
@@ -38,6 +39,17 @@ namespace Project.WebAPI.Repositories.BlogRepository
 				}
 
 				return values;
+			}
+		}
+
+		public async Task<List<ResultBlogDto>> GetCommentCountAndBlogs()
+		{
+			string getCommentCountQuery = "SELECT b.BlogId, b.PreTitle, b.PreDescription, b.UserId, b.PostDate, b.ImageUrl, COUNT(c.CommentId) as CommentCount FROM Blogs b LEFT JOIN Comments c ON b.BlogId = c.BlogId WHERE b.Status = 1 GROUP BY b.BlogId, b.PreTitle, b.PreDescription, b.UserId, b.ImageUrl, b.PostDate ORDER BY b.PostDate DESC";
+
+			using (var connection = _dapperContext.CreateConnection())
+			{
+				var values = await connection.QueryAsync<ResultBlogDto>(getCommentCountQuery);
+				return values.ToList();
 			}
 		}
 
@@ -92,13 +104,16 @@ namespace Project.WebAPI.Repositories.BlogRepository
 			}
 		}
 
-		public async Task<List<ResultBlogDto>> ListRecentBlogs()
+		public async Task<List<ResultBlogDto>> ListRecentBlogs(int currentBlogId)
 		{
-			string listRecentBlogsQuery = "SELECT TOP(3) * FROM Blogs WHERE Status = 1 ORDER BY PostDate DESC";
+			string listRecentBlogsQuery = "SELECT TOP(6) b.BlogId, b.PreTitle, b.PreDescription, b.PostDate, b.ImageUrl, COUNT(c.CommentId) AS CommentCount FROM Blogs b LEFT JOIN Comments c ON b.BlogId = c.BlogId WHERE b.Status = 1 AND b.BlogId != @currentBlogId GROUP BY b.BlogId, b.PreTitle, b.PreDescription, b.ImageUrl, b.PostDate ORDER BY b.PostDate DESC";
+
+			var parameters = new DynamicParameters();
+			parameters.Add("@currentBlogId", currentBlogId);
 
 			using (var connection = _dapperContext.CreateConnection())
 			{
-				var values = await connection.QueryAsync<ResultBlogDto>(listRecentBlogsQuery);
+				var values = await connection.QueryAsync<ResultBlogDto>(listRecentBlogsQuery, parameters);
 				return values.ToList();
 			}
 		}
@@ -116,7 +131,22 @@ namespace Project.WebAPI.Repositories.BlogRepository
 			}
 		}
 
-		public async Task UpdateBlog(UpdateBlogDto updateBlogDto)
+        public async Task<List<ResultBlogDto>> SearchBlog(string keyWord)
+        {
+			string searchQuery = "SELECT b.BlogId, b.PreTitle, b.PreDescription, b.PostDate, b.ImageUrl, COUNT(c.CommentId) as CommentCount FROM Blogs b LEFT JOIN Comments c ON b.BlogId = c.BlogId WHERE b.Status = 1 AND (b.PreTitle LIKE @keyWord OR b.PreDescription LIKE @keyWord) GROUP BY b.BlogId, b.PreTitle, b.PreDescription, b.ImageUrl, b.PostDate ORDER BY b.PostDate DESC";
+
+			var parameters = new DynamicParameters();
+			parameters.Add("@keyWord", '%' + keyWord + '%');
+
+			using (var connection = _dapperContext.CreateConnection())
+			{
+				var values = await connection.QueryAsync<ResultBlogDto>(searchQuery, parameters);
+
+                return values.ToList();
+            }
+		}
+
+        public async Task UpdateBlog(UpdateBlogDto updateBlogDto)
 		{
 			string updateQuery = "UPDATE Blogs SET PreTitle = @preTitle, PreDescription = @preDescription, FirstTitle = @firstTitle, FirstDescription = @firstDescription, SecondTitle = @secondTitle, SecondDescription = @secondDescription, ImageUrl = @imageUrl, Status = @status WHERE BlogId = @blogId";
 

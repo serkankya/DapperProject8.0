@@ -1,0 +1,34 @@
+﻿@using Project.Shared.DTOs.VehicleDtos
+@model List<ResultVehicleDto>
+
+<section class="ftco-section ftco-no-pt">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                <span class="subheading">Aracınızı Seçin</span>
+                <h2 class="mb-2">Diğer Araçlar</h2>
+            </div>
+        </div>
+        <div class="row">
+
+			@foreach (var item in Model)
+			{
+				<div class="col-md-4">
+					<div class="car-wrap rounded ftco-animate">
+						<div class="img rounded d-flex align-items-end" style="background-image: url('@Url.Content(item.CoverImage)');">
+						</div>
+						<div class="text">
+							<h2 class="mb-0"><a href="car-single.html">@item.BrandName @item.ModelName</a></h2>
+							<div class="d-flex mb-3">
+								<span class="cat">@item.CategoryName</span>
+								<p class="price ml-auto">@item.PricePerDay ₺ <span>/gün</span></p>
+							</div>
+							<p class="d-flex mb-0 d-block"><a href="@Url.Action("Details","Vehicles",new{id = item.VehicleId})" class="btn btn-secondary py-2 ml-1">Detaylar</a></p>
+						</div>
+					</div>
+				</div>
+			}
+            
+        </div>
+    </div>
+</section>

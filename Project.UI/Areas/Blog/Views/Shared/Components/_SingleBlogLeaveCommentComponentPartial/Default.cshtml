@@ -2,9 +2,30 @@
 @model InsertCommentDto
 
 <div class="comment-form-wrap pt-5">
+
+	@if (TempData["SuccessComment"] != null)
+	{
+		<div class="alert alert-success">
+			@TempData["SuccessComment"]
+		</div>
+	}
+
+	@if (TempData["ErrorComment"] != null)
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach (var error in (string[])TempData["ErrorComment"]!)
+				{
+					<li>@error</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<h3 class="mb-5">Yorum Yap</h3>
 	<form action="/Blog/Blog/InsertComment" method="post" class="p-5 bg-light">
 		<input type="hidden" name="BlogId" value="@ViewBag.BlogId" />
+		<input type="hidden" name="UserId" value="@ViewBag.UserId" />
 		<div class="form-group">
 			<label>Adınız *</label>
 			<input type="text" class="form-control" name="UserName">

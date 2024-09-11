@@ -13,7 +13,9 @@ using Project.WebAPI.Repositories.MissionVisionRepository;
 using Project.WebAPI.Repositories.ModelRepository;
 using Project.WebAPI.Repositories.OurServiceRepository;
 using Project.WebAPI.Repositories.ReviewRepository;
+using Project.WebAPI.Repositories.StatisticsRepository;
 using Project.WebAPI.Repositories.TestimonialRepository;
+using Project.WebAPI.Repositories.UserRepository;
 using Project.WebAPI.Repositories.VehicleAmenityRepository;
 using Project.WebAPI.Repositories.VehicleRepository;
 
@@ -41,6 +43,8 @@ namespace Project.WebAPI.Containers
 			services.AddTransient<IVehicleAmenityRepository, VehicleAmenityRepository>();
 			services.AddTransient<IReviewRepository, ReviewRepository>();
 			services.AddTransient<ICommentRepository, CommentRepository>();
+			services.AddTransient<IStatisticsRepository, StatisticsRepository>();
+			services.AddTransient<IUserRepository, UserRepository>();
 		}
 	}
 }

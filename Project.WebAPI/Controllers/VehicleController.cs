@@ -78,5 +78,12 @@ namespace Project.WebAPI.Controllers
             var values = await _vehicleRepository.ListVehicleAmenities(id);
             return Ok(values);
         }
-    }
+
+        [HttpGet("GetOtherCars")]
+		public async Task<IActionResult> GetOtherCars()
+		{
+            var values = await _vehicleRepository.ListOtherCars();
+			return Ok(values);
+		}
+	}
 }

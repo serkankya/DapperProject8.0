@@ -18,11 +18,12 @@ namespace Project.UI.Areas.Blog.ViewComponents
             _apiSettings = apiSettings.Value;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string keyWord)
         {
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_apiSettings.BaseHostUrl!);
-            var responseMessage = await client.GetAsync("Blog/GetActiveBlogs");
+            string url = string.IsNullOrEmpty(keyWord) ? "Blog/GetCommentCountAndBlogs" : $"Blog/SearchBlog?keyWord={keyWord}";
+            var responseMessage = await client.GetAsync(url);
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -31,7 +32,7 @@ namespace Project.UI.Areas.Blog.ViewComponents
                 return View(values);
             }
 
-            return View();
+            return View(new List<ResultBlogDto>()); 
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Project.Shared.DTOs.BlogDtos;
 using Project.Shared.DTOs.CommentDtos;
 using Project.UI.Models;
+using Project.UI.Tools.FluentValidation;
 using System.Text;
 
 namespace Project.UI.Areas.Blog.Controllers
@@ -20,21 +20,32 @@ namespace Project.UI.Areas.Blog.Controllers
 			_apiSettings = apiSettings.Value;
 		}
 
-		public IActionResult Index()
+		public IActionResult Index(string keyWord)
 		{
+			ViewBag.KeyWord = keyWord;
 			return View();
 		}
 
-		[HttpGet("SingleBlog/{id}")]
-		public IActionResult SingleBlog(int id)
+		[HttpGet("SingleBlog/{id}user{userId}")]
+		public IActionResult SingleBlog(int id, int userId)
 		{
 			ViewBag.BlogId = id;
+			ViewBag.UserId = userId;
 			return View();
 		}
 
 
 		public async Task<IActionResult> InsertComment(InsertCommentDto insertCommentDto)
 		{
+			var validator = new InsertCommentValidator();
+			var result = validator.Validate(insertCommentDto);
+
+			if (!result.IsValid)
+			{
+				TempData["ErrorComment"] = result.Errors.Select(e => e.ErrorMessage).ToList();
+				return RedirectToAction("SingleBlog", new { id = insertCommentDto.BlogId, userId = insertCommentDto.UserId });
+			}
+
 			var client = _httpClientFactory.CreateClient();
 			client.BaseAddress = new Uri(_apiSettings.BaseHostUrl!);
 			var jsonData = JsonConvert.SerializeObject(insertCommentDto);
@@ -43,7 +54,8 @@ namespace Project.UI.Areas.Blog.Controllers
 
 			if (responseMessage.IsSuccessStatusCode)
 			{
-				return RedirectToAction("SingleBlog", new { id = insertCommentDto.BlogId });
+				TempData["SuccessComment"] = "Yorumunuz başarıyla paylaşıldı.";
+				return RedirectToAction("SingleBlog", new { id = insertCommentDto.BlogId, userId = insertCommentDto.UserId });
 			}
 
 			return View();

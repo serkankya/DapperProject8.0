@@ -15,6 +15,6 @@ namespace Project.Shared.DTOs.BlogDtos
         public string? SecondDescription { get; set; }
 		public string? PreTitle { get; set; }
 		public string? PreDescription { get; set; }
-		public string? ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

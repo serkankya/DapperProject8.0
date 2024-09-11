@@ -9,6 +9,7 @@ namespace Project.Shared.DTOs.CommentDtos
 	public class InsertCommentDto
 	{
 		public int BlogId { get; set; }
+		public int UserId { get; set; }
 		public string? Comment { get; set; }
 		public string? UserName { get; set; }
 		public string? Email { get; set; }

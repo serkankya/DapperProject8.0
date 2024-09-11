@@ -9,6 +9,18 @@
 		</div>
 	}
 
+	@if (TempData["ErrorMessage"] != null)
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach (var error in (string[])TempData["ErrorMessage"]!)
+				{
+					<li>@error</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<form action="/Contact/Contact/SendMessage" method="post" class="bg-light p-5 contact-form">
 		<div class="form-group">
 			<input type="text" class="form-control" name="Name" placeholder="Adınız">

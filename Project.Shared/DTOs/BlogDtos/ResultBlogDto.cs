@@ -17,6 +17,7 @@ namespace Project.Shared.DTOs.BlogDtos
         public string? PreTitle { get; set; }
         public string? PreDescription { get; set; }
         public string? ImageUrl { get; set; }
+        public int CommentCount { get; set; }
         public DateTime PostDate { get; set; }
         public bool Status { get; set; }
     }

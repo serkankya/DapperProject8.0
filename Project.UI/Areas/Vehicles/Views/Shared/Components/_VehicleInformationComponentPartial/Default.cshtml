@@ -1,0 +1,86 @@
+﻿@using Project.Shared.DTOs.VehicleDtos
+@model ResultVehicleDto
+
+<div class="text text-center mt-4">
+	<span class="subheading">@Model.BrandName</span>
+	<h2>@Model.BrandName @Model.ModelName</h2>
+</div>
+		</div>
+	</div>
+<div class="row">
+	<div class="col-md d-flex align-self-stretch ftco-animate">
+		<div class="media block-6 services">
+			<div class="media-body py-md-4">
+				<div class="d-flex mb-3 align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-dashboard"></span></div>
+					<div class="text">
+						<h3 class="heading mb-0 pl-3">
+							Kilometre
+							<span>@Model.MileAge Km</span>
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md d-flex align-self-stretch ftco-animate">
+		<div class="media block-6 services">
+			<div class="media-body py-md-4">
+				<div class="d-flex mb-3 align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-pistons"></span></div>
+					<div class="text">
+						<h3 class="heading mb-0 pl-3">
+							Vites
+							<span>@Model.Transmission</span>
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md d-flex align-self-stretch ftco-animate">
+		<div class="media block-6 services">
+			<div class="media-body py-md-4">
+				<div class="d-flex mb-3 align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car-seat"></span></div>
+					<div class="text">
+						<h3 class="heading mb-0 pl-3">
+							Koltuk Sayısı
+							<span>@Model.NumberOfSeats</span>
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md d-flex align-self-stretch ftco-animate">
+		<div class="media block-6 services">
+			<div class="media-body py-md-4">
+				<div class="d-flex mb-3 align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
+					<div class="text">
+						<h3 class="heading mb-0 pl-3">
+							Motor Tipi
+							<span>@Model.EngineType</span>
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md d-flex align-self-stretch ftco-animate">
+		<div class="media block-6 services">
+			<div class="media-body py-md-4">
+				<div class="d-flex mb-3 align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
+					<div class="text">
+						<h3 class="heading mb-0 pl-3">
+							Yakıt Türü
+							<span>@Model.FuelType</span>
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

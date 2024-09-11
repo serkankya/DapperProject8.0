@@ -15,5 +15,6 @@ namespace Project.WebAPI.Repositories.VehicleRepository
 		Task RemoveVehicle(int id);
 		Task<ResultVehicleDto> GetVehicleById(int id);
 		Task<List<ResultVehicleDto>> GetSelectedCars();
+		Task<List<ResultVehicleDto>> ListOtherCars();
 	}
 }

@@ -9,6 +9,6 @@ namespace Project.WebAPI.Repositories.CommentRepository
 		Task InsertComment(InsertCommentDto insertCommentDto);
 		Task UpdateComment(UpdateCommentDto updateCommentDto);
 		Task DeleteComment(int id);
-		Task<ResultCommentDto> GetCommentById(int id);	
+		Task<ResultCommentDto> GetCommentById(int id);
 	}
 }
